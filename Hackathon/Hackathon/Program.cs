@@ -6,21 +6,24 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime Date { get; set; }
-
+        
     }
     class Management
     {
         List<Note> notes;
+        int count = 1;
         public Management()
         {
             notes = new List<Note>()
             {
-                new Note {Id = 1,Title = "Meeting", Description ="Meeting with Client", Date = new DateTime(2022,2,10)},
-                new Note {Id = 2, Title = "PayBills", Description ="Pay Electricity Bills", Date = new DateTime(2022,2,12)}
+                
+                new Note {Id = 1,Title = "Meeting", Description ="Meeting with Client", Date = new DateTime(2022,2,10) },
+                new Note {Id = 2, Title = "PayBills", Description ="Pay Electricity Bills", Date = new DateTime(2022,2,12) }
             };
         }
         public void CreateNote(Note note)
         {
+            count++;
             notes.Add(note);
         }
         public int GenerateNoteId(string title)
@@ -41,7 +44,7 @@
         public List<Note> ViewAllNotes()
         {
             return notes;
-            Console.WriteLine($"Total Notes\t{notes.Count}");
+            //Console.WriteLine($"Total Notes\t{notes.Count}");
         }
         public bool UpdateNote(int id)
         {
@@ -91,8 +94,17 @@
                 Console.WriteLine("4. UpdateNote by id");
                 Console.WriteLine("5. DeleteNote by id");
 
-                Console.WriteLine("enter ur choice");
-                int ch = Convert.ToInt16(Console.ReadLine());
+                int ch = 0;
+                try
+                {
+                    Console.WriteLine("enter ur choice");
+                    ch = Convert.ToInt16(Console.ReadLine());
+                }
+                catch (FormatException)
+                {
+
+                    Console.WriteLine("Enter only Numbers");
+                }
                 switch (ch)
                 {
                     case 1:
@@ -137,7 +149,8 @@
                             {
                                 Console.WriteLine($"{n.Id}\t {n.Title}\t {n.Description}\t {n.Date}");
                             }
-                            //Console.WriteLine($"Total Notes\t{n.Count});
+                            
+                            //Console.WriteLine($"Total Notes\t {m.count}");
                             break;
                         }
                     case 4:
